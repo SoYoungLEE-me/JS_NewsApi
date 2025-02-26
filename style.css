@@ -1,0 +1,36 @@
+.head-line {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+}
+.head-line svg {
+  width: 430px;
+}
+
+.menus {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /*다음줄로 넘어가는 설정*/
+  border-top: 1px solid #ebebeb;
+  border-bottom: 4px double black;
+}
+
+.menus button {
+  border: none;
+  background-color: transparent;
+  margin: 5px;
+}
+
+.menus button:hover {
+  background-color: rgb(218, 218, 218);
+}
+
+.news-img-size {
+  max-width: 100%;
+  max-height: 250px;
+}
+
+.news {
+  border-bottom: 2px solid black;
+}
