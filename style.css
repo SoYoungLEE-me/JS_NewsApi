@@ -2,6 +2,7 @@
   margin-top: 1em;
   display: flex;
   justify-content: center;
+  border-bottom: 1px solid #ebebeb;
 }
 .head-line svg {
   width: 430px;
@@ -12,7 +13,6 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap; /*다음줄로 넘어가는 설정*/
-  border-top: 1px solid #ebebeb;
   border-bottom: 4px double black;
 }
 
@@ -33,4 +33,119 @@
 
 .news {
   border-bottom: 2px solid black;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.side-menu {
+  border: none;
+  background-color: transparent;
+  margin: 7px;
+  display: none;
+}
+
+/* 사이드바 */
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: -260px;
+  background-color: #222;
+  transition: left 0.3s ease-in-out;
+  padding-top: 20px;
+  overflow: hidden;
+}
+
+.sidebar-menus button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: none;
+  color: white;
+  text-align: left;
+}
+
+.sidebar-menus button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 닫기 버튼 */
+.close-btn {
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+}
+
+/* 모바일 스타일 */
+@media (max-width: 768px) {
+  .menus {
+    display: none; /* 기존 메뉴 숨기기 */
+  }
+
+  .side-menu {
+    display: block; /* 햄버거 버튼 보이기 */
+  }
+
+  .search-box input {
+    width: 120px;
+  }
+
+  .head-line {
+    margin-bottom: 2em;
+  }
+}
+
+.search-area {
+  position: relative; /* 검색창이 아이콘 기준으로 위치하도록 설정 */
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  border: none;
+  background-color: transparent;
+  margin: 7px;
+}
+
+.search-box {
+  display: none; /* 기본적으로 숨김 */
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%) translateX(-10px);
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 280px;
+}
+
+.search-box input {
+  width: 70%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-box button {
+  padding: 5px;
+  width: 25%;
+  margin-left: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: #141414;
+  color: white;
 }

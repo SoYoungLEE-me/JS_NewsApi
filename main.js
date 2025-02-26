@@ -36,4 +36,17 @@ const render = () => {
   document.getElementById("news-board").innerHTML = newsHTML;
 };
 
+// 사이드메뉴 열고 닫기
+const toggleMenu = () => {
+  const sidebar = document.getElementById("sidebar");
+  sidebar.style.left = sidebar.style.left === "-260px" ? "0px" : "-260px";
+};
+
+//검색창 열고 닫기
+const toggleSearch = () => {
+  const searchBox = document.getElementById("search-box");
+  searchBox.style.display =
+    searchBox.style.display === "none" ? "block" : "none";
+};
+
 getLatestNews();
