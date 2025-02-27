@@ -27,7 +27,7 @@ const render = () => {
         : "Unknown Date";
 
       return `<div class="row news">
-          <div class="col-lg-4">
+          <div class="col-lg-4 news-img-container">
             <img
               class="news-img-size"
               alt="news image"
@@ -35,7 +35,7 @@ const render = () => {
               src=${imgUrl}
             />
           </div>
-          <div class="col-lg-8">
+          <div class="col-lg-8 news-content">
             <h2>${news.title}</h2>
             <p>
               ${description}

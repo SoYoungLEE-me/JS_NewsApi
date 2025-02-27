@@ -21,49 +21,45 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <nav class="navbar">
+      <div>
+        <button class="side-menu" onclick="toggleMenu()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+      <div class="search-area">
+        <button onclick="toggleSearch()" class="search-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <div id="search-box" class="search-box">
+          <input type="text" id="search-input" placeholder="Search news..." />
+          <button onclick="searchNews()">search</button>
+        </div>
+      </div>
+
+      <div id="sidebar" class="sidebar">
+        <button class="close-btn" onclick="toggleMenu()">×</button>
+        <div class="sidebar-menus">
+          <button>Sport</button>
+          <button>Tech</button>
+          <button>World</button>
+          <button>Finance</button>
+          <button>Politics</button>
+          <button>Business</button>
+          <button>Economics</button>
+          <button>Entertainment</button>
+          <button>Beauty</button>
+          <button>Travel</button>
+          <button>Music</button>
+          <button>Food</button>
+          <button>Science</button>
+          <button>Gaming</button>
+          <button>Energy</button>
+        </div>
+      </div>
+    </nav>
     <section class="container">
       <section>
-        <nav class="navbar">
-          <div>
-            <button class="side-menu" onclick="toggleMenu()">
-              <i class="fa-solid fa-bars"></i>
-            </button>
-          </div>
-          <div class="search-area">
-            <button onclick="toggleSearch()" class="search-icon">
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-            <div id="search-box" class="search-box">
-              <input
-                type="text"
-                id="search-input"
-                placeholder="Search news..."
-              />
-              <button onclick="searchNews()">search</button>
-            </div>
-          </div>
-
-          <div id="sidebar" class="sidebar">
-            <button class="close-btn" onclick="toggleMenu()">×</button>
-            <div class="sidebar-menus">
-              <button>Sport</button>
-              <button>Tech</button>
-              <button>World</button>
-              <button>Finance</button>
-              <button>Politics</button>
-              <button>Business</button>
-              <button>Economics</button>
-              <button>Entertainment</button>
-              <button>Beauty</button>
-              <button>Travel</button>
-              <button>Music</button>
-              <button>Food</button>
-              <button>Science</button>
-              <button>Gaming</button>
-              <button>Energy</button>
-            </div>
-          </div>
-        </nav>
         <div class="head-line">
           <svg viewBox="0 0 184 25" fill="#000" aria-hidden="true">
             <path
