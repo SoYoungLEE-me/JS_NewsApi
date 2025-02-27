@@ -14,23 +14,36 @@ const getLatestNews = async () => {
 
 const render = () => {
   const newsHTML = newsList
-    .map(
-      (news) => `<div class="row news">
+    .map((news) => {
+      const imgUrl = news.urlToImage ? news.urlToImage : "/assets/no_img.jpg";
+      const sourceName = news.source.name ? news.source.name : "no source";
+      const description =
+        news.description && news.description.length > 200
+          ? news.description.slice(0, 200) + "..."
+          : news.description || "내용 없음";
+
+      const publishedTime = news.publishedAt
+        ? moment(news.publishedAt).fromNow()
+        : "Unknown Date";
+
+      return `<div class="row news">
           <div class="col-lg-4">
             <img
               class="news-img-size"
-              src=${news.urlToImage}
+              alt="news image"
+              onerror = "this.src = '/assets/no_img.jpg';"
+              src=${imgUrl}
             />
           </div>
           <div class="col-lg-8">
             <h2>${news.title}</h2>
             <p>
-              ${news.description}
+              ${description}
             </p>
-            <div>${news.source.name} * ${news.publishedAt}</div>
+            <div>${sourceName} * ${publishedTime}</div>
           </div>
-        </div>`
-    )
+        </div>`;
+    })
     .join("");
 
   document.getElementById("news-board").innerHTML = newsHTML;
