@@ -1,5 +1,15 @@
 const API_KEY = `c046d6901c3744e088e883ae50240333`;
 let newsList = [];
+const menus = document.querySelectorAll(".menus button");
+menus.forEach((menu) =>
+  menu.addEventListener("click", (event) => getNewsByCategory(event))
+);
+
+const sideMenus = document.querySelectorAll(".sidebar-menus button");
+sideMenus.forEach((menu) =>
+  menu.addEventListener("click", (event) => getNewsByCategory(event))
+);
+
 const getLatestNews = async () => {
   const url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr`
@@ -9,6 +19,17 @@ const getLatestNews = async () => {
   newsList = data.articles;
   console.log("ddd", newsList);
 
+  render();
+};
+
+const getNewsByCategory = async (event) => {
+  const category = event.target.textContent.toLowerCase();
+  const url = new URL(
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?&category=${category}`
+  );
+  const response = await fetch(url);
+  const data = await response.json();
+  newsList = data.articles;
   render();
 };
 
