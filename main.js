@@ -5,6 +5,14 @@ menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewsByCategory(event))
 );
 
+const searchInput = document.getElementById("search-input");
+
+searchInput.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    searchNews();
+  }
+});
+
 const sideMenus = document.querySelectorAll(".sidebar-menus button");
 sideMenus.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewsByCategory(event))
@@ -26,6 +34,18 @@ const getNewsByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
   const url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?&category=${category}`
+  );
+  const response = await fetch(url);
+  const data = await response.json();
+  newsList = data.articles;
+  render();
+};
+
+const searchNews = async () => {
+  const keyword = searchInput.value;
+  console.log(keyword);
+  const url = new URL(
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?&q=${keyword}`
   );
   const response = await fetch(url);
   const data = await response.json();
@@ -57,7 +77,7 @@ const render = () => {
             />
           </div>
           <div class="col-lg-8 news-content">
-            <h2>${news.title}</h2>
+            <h2 class="newTitle">${news.title}</h2>
             <p>
               ${description}
             </p>

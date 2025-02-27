@@ -42,11 +42,22 @@
 
 .news {
   border-bottom: 2px solid black;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .news-content {
   margin-top: 15px;
   margin-bottom: 5px;
+}
+
+.newTitle {
+  margin-bottom: 20px;
+}
+
+.newTitle:hover {
+  text-decoration: underline;
+  font-weight: bolder;
 }
 
 .navbar {
