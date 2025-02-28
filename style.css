@@ -51,11 +51,22 @@
   margin-bottom: 5px;
 }
 
-.newTitle {
+.newsTitle {
   margin-bottom: 20px;
+  cursor: pointer;
 }
 
-.newTitle:hover {
+.news-img-container img {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.news:hover .news-img-container img {
+  transform: scale(1.1);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* hover 시 그림자 효과 */
+  border-radius: 12px;
+}
+
+.news:hover .newsTitle {
   text-decoration: underline;
   font-weight: bolder;
 }
@@ -66,13 +77,6 @@
   align-items: center;
   padding: 10px 20px;
   position: relative;
-}
-
-.side-menu {
-  border: none;
-  background-color: transparent;
-  margin: 7px;
-  display: none;
 }
 
 /* 사이드바 */
@@ -88,6 +92,17 @@
   overflow: hidden;
 }
 
+.side-menu {
+  border: none;
+  background-color: transparent;
+  margin: 7px;
+  display: none;
+}
+
+.sidebar-menus {
+  margin-top: 60px;
+}
+
 .sidebar-menus button {
   display: block;
   width: 100%;
@@ -96,6 +111,7 @@
   background: none;
   color: white;
   text-align: left;
+  margin-top: 15px;
 }
 
 .sidebar-menus button:hover {

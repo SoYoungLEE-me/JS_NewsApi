@@ -77,7 +77,7 @@ const render = () => {
             />
           </div>
           <div class="col-lg-8 news-content">
-            <h2 class="newTitle">${news.title}</h2>
+            <h2 class="newsTitle">${news.title}</h2>
             <p>
               ${description}
             </p>
