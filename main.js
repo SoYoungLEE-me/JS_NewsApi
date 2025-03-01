@@ -18,39 +18,51 @@ sideMenus.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewsByCategory(event))
 );
 
+let url = new URL(
+  `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr`
+);
+
+const getNews = async () => {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    if (response.status === 200) {
+      if (data.articles.length === 0) {
+        throw new Error("No result for this search");
+      }
+      newsList = data.articles;
+      render();
+    } else {
+      throw new Error(data.message);
+    }
+  } catch (error) {
+    errorRender(error.message);
+  }
+};
+
 const getLatestNews = async () => {
-  const url = new URL(
+  url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr`
   );
-  const response = await fetch(url);
-  const data = await response.json();
-  newsList = data.articles;
-  console.log("ddd", newsList);
 
-  render();
+  getNews();
 };
 
 const getNewsByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
-  const url = new URL(
+  url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?&category=${category}`
   );
-  const response = await fetch(url);
-  const data = await response.json();
-  newsList = data.articles;
-  render();
+  getNews();
 };
 
 const searchNews = async () => {
   const keyword = searchInput.value;
   console.log(keyword);
-  const url = new URL(
+  url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?&q=${keyword}`
   );
-  const response = await fetch(url);
-  const data = await response.json();
-  newsList = data.articles;
-  render();
+  getNews();
 };
 
 const render = () => {
@@ -90,11 +102,40 @@ const render = () => {
   document.getElementById("news-board").innerHTML = newsHTML;
 };
 
+const errorRender = (errorMessage) => {
+  const errorHtml = `<div class="alert alert-danger" role="alert">
+    ${errorMessage}
+  </div>;`;
+  document.getElementById("news-board").innerHTML = errorHtml;
+};
+
 // 사이드메뉴 열고 닫기
 const toggleMenu = () => {
   const sidebar = document.getElementById("sidebar");
-  sidebar.style.left = sidebar.style.left === "-260px" ? "0px" : "-260px";
+  sidebar.classList.toggle(
+    "open"
+  ); /* class.toggle은 클래스가 없으면 추가를 있으면 제거를 하는 방식 */
 };
+
+window.addEventListener("resize", () => {
+  const sidebar = document.getElementById("sidebar");
+
+  if (window.innerWidth > 768) {
+    sidebar.classList.remove("open");
+  }
+});
+
+/* 카테고리를 클릭 시 사이드바 자동 닫힘 기능 */
+document.addEventListener("click", (event) => {
+  const sidebar = document.getElementById("sidebar");
+
+  if (
+    sidebar.classList.contains("open") &&
+    event.target.closest(".sidebar-menus button")
+  ) {
+    sidebar.classList.remove("open");
+  }
+});
 
 //검색창 열고 닫기
 const toggleSearch = () => {
