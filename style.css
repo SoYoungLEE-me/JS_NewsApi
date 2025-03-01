@@ -10,10 +10,20 @@ button {
   display: flex;
   justify-content: center;
   border-bottom: 1px solid #ebebeb;
+  transition: all 0.3s ease-in-out;
 }
 
 .head-line svg {
   width: 430px;
+}
+
+.head-line:hover {
+  transform: scale(1.05);
+}
+
+.head-line:active {
+  transform: scale(1.05);
+  opacity: 0.5;
 }
 
 /* 메뉴 */
@@ -200,7 +210,6 @@ button {
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  transform: scale(1.1);
   gap: 5px;
 }
 
