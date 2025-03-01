@@ -22,22 +22,34 @@ let url = new URL(
   `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr`
 );
 
+let totalResults = 0;
+let page = 1;
+const pageSize = 10;
+const groupSize = 5;
+
 const getNews = async () => {
   try {
+    url.searchParams.set("page", page); // &page=page
+    url.searchParams.set("pageSize", pageSize);
+
     const response = await fetch(url);
     const data = await response.json();
+
     if (response.status === 200) {
       if (data.articles.length === 0) {
         throw new Error("No result for this search");
       }
       newsList = data.articles;
+      totalResults = data.totalResults;
       render();
+      paginationRender();
     } else {
       throw new Error(data.message);
     }
   } catch (error) {
     errorRender(error.message);
   }
+  window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
 const getLatestNews = async () => {
@@ -49,6 +61,7 @@ const getLatestNews = async () => {
 };
 
 const getNewsByCategory = async (event) => {
+  page = 1;
   const category = event.target.textContent.toLowerCase();
   url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?&category=${category}`
@@ -57,12 +70,14 @@ const getNewsByCategory = async (event) => {
 };
 
 const searchNews = async () => {
+  page = 1;
   const keyword = searchInput.value;
   console.log(keyword);
   url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?&q=${keyword}`
   );
   getNews();
+  searchInput.value = "";
 };
 
 const render = () => {
@@ -105,8 +120,75 @@ const render = () => {
 const errorRender = (errorMessage) => {
   const errorHtml = `<div class="alert alert-danger" role="alert">
     ${errorMessage}
-  </div>;`;
+  </div>`;
   document.getElementById("news-board").innerHTML = errorHtml;
+};
+
+/* 페이지네이션 */
+const paginationRender = () => {
+  const pageGroup = Math.ceil(page / groupSize);
+  const totalPage = Math.ceil(totalResults / pageSize);
+  const lastPage = Math.min(totalPage, pageGroup * groupSize);
+  const firstPage =
+    lastPage - (groupSize - 1) > 0 ? lastPage - (groupSize - 1) : 1;
+
+  let paginationHTML = "";
+
+  // 처음 페이지 버튼, 1페이지가 아닐 때만 비활성화
+  paginationHTML += `
+    <li class="page-item ${page === 1 ? "disabled" : ""}"${
+    page === 1 ? "" : `onclick="moveToPage(${1})"`
+  }>
+      <a class="page-link" aria-label="First">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>`;
+
+  //이전 버튼, 페이지가 아닐 때만 비활성화
+  paginationHTML += `
+    <li class="page-item ${page === 1 ? "disabled" : ""}" ${
+    page === 1 ? "" : `onclick="moveToPage(${page - 1})"`
+  }>
+      <a class="page-link" aria-label="Previous">
+        <span aria-hidden="true">&lt;</span>
+      </a>
+    </li>`;
+
+  // 페이지 버튼
+  for (let i = firstPage; i <= lastPage; i++) {
+    paginationHTML += `
+      <li class="page-item ${
+        i === page ? "active" : ""
+      }" onclick="moveToPage(${i})">
+        <a class="page-link">${i}</a>
+      </li>`;
+  }
+
+  //다음 버튼, 마지막 페이지가 아닐 때만 비활성화
+  paginationHTML += `
+    <li class="page-item ${page === totalPage ? "disabled" : ""}" ${
+    page === totalPage ? "" : `onclick="moveToPage(${page + 1})"`
+  }> <a class="page-link" aria-label="Next">
+        <span aria-hidden="true">&gt;</span>
+      </a>
+    </li>`;
+
+  //마지막 페이지 버튼, 마지막 페이지가 아닐 때만 비활성화
+  paginationHTML += `
+    <li class="page-item ${page === totalPage ? "disabled" : ""}" ${
+    page === totalPage ? "" : `onclick="moveToPage(${totalPage})"`
+  }>
+      <a class="page-link" aria-label="Last">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>`;
+
+  document.querySelector(".pagination").innerHTML = paginationHTML;
+};
+
+const moveToPage = (pageNum) => {
+  page = pageNum;
+  getNews();
 };
 
 // 사이드메뉴 열고 닫기
