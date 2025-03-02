@@ -24,7 +24,7 @@ let url = new URL(
 
 let totalResults = 0;
 let page = 1;
-const pageSize = 10;
+const pageSize = 11;
 const groupSize = 5;
 
 const getNews = async () => {
@@ -49,7 +49,7 @@ const getNews = async () => {
   } catch (error) {
     errorRender(error.message);
   }
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  // window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
 const getLatestNews = async () => {
